@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>MarketCat</title>
+  <link rel="stylesheet" href="/app.css"/>
+</head>
+<body>
+
+<!-- ── Supabase config (replace values, or use Vercel env vars + build step) ── -->
+<script>
+  window.__ENV__ = {
+    SUPABASE_URL:      "PASTE_SUPABASE_URL",
+    SUPABASE_ANON_KEY: "PASTE_SUPABASE_ANON_KEY"
+  };
+</script>
+
+<!-- ── Global spinner ── -->
+<div id="mc-spinner" style="display:none">
+  <div class="spinner-ring"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     AUTH VIEW
+═══════════════════════════════════════════════════════════════ -->
+<div id="auth" class="auth-wrap">
+  <div class="auth-card">
+    <div class="auth-logo">🐱 MarketCat</div>
+    <p class="auth-sub">Real-time markets. Sign in to continue.</p>
+    <input id="email"    type="email"    placeholder="Email address" autocomplete="email"/>
+    <input id="password" type="password" placeholder="Password"      autocomplete="current-password"/>
+    <div class="auth-btns">
+      <button id="signin" class="btn btn-primary">Sign In</button>
+      <button id="signup" class="btn btn-ghost">Create Account</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     APP VIEW (hidden until signed in)
+═══════════════════════════════════════════════════════════════ -->
+<div id="app" style="display:none">
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-logo">🐱 MarketCat</div>
+    <form id="sym-form" class="sym-form">
+      <input id="sym-input" type="text" placeholder="Symbol (e.g. AAPL)" maxlength="10"/>
+      <button type="submit" class="btn btn-primary btn-sm">Go</button>
+    </form>
+    <div class="nav-right">
+      <span id="user-email" class="user-email"></span>
+      <button id="signout" class="btn btn-ghost btn-sm">Sign Out</button>
+    </div>
+  </nav>
+
+  <!-- Dashboard grid -->
+  <main class="dashboard">
+
+    <!-- Quote panel -->
+    <section class="panel panel-quote">
+      <h2 class="panel-title">Quote</h2>
+      <div id="quote"><div class="empty">Enter a symbol above.</div></div>
+    </section>
+
+    <!-- Top Movers -->
+    <section class="panel panel-movers">
+      <h2 class="panel-title">Top Movers</h2>
+      <div id="movers"><div class="empty loading-txt">Loading…</div></div>
+    </section>
+
+    <!-- News -->
+    <section class="panel panel-news">
+      <h2 class="panel-title">News</h2>
+      <div id="news"><div class="empty">Select a symbol to see news.</div></div>
+    </section>
+
+  </main>
+</div>
+
+<script type="module" src="/app.js"></script>
+</body>
+</html>
